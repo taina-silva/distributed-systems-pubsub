@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package project;
+
+message Aluno {
+  string matricula = 1;
+  string nome      = 2;
+}
+
+message Professor {
+  string siape = 1;
+  string nome  = 2;
+}
+
+message Disciplina {
+  string sigla = 1;
+  string nome  = 2;
+  int32 vagas  = 3;
+}
+
+message Status {
+  // 0 = sucesso, 1 = erro
+  int32 status = 1; 
+  string msg   = 2;
+}
+
+message Identificador {
+  string id = 1;
+}
+
+message Vazia {}
+
+service PortalAdministrativo {
+  rpc NovoAluno(Aluno) returns (Status) {}
+  rpc EditaAluno(Aluno) returns (Status) {}
+  rpc RemoveAluno(Identificador) returns (Status) {}
+  rpc ObtemAluno(Identificador) returns (Aluno) {}
+  rpc ObtemTodosAlunos(Vazia) returns (stream Aluno) {}
+  rpc NovoProfessor(Professor) returns (Status) {}
+  rpc EditaProfessor(Professor) returns (Status) {}
+  rpc RemoveProfessor(Identificador) returns (Status) {}
+  rpc ObtemProfessor(Identificador) returns (Professor) {}
+  rpc ObtemTodosProfessores(Vazia) returns (stream Professor) {}
+  rpc NovaDisciplina(Disciplina) returns (Status) {}
+  rpc EditaDisciplina(Disciplina) returns (Status) {}
+  rpc RemoveDisciplina(Identificador) returns (Status) {}
+  rpc ObtemDisciplina(Identificador) returns (Disciplina) {}
+  rpc ObtemTodasDisciplinas(Vazia) returns (stream Disciplina) {}
+}
